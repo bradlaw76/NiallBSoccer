@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -205,43 +205,99 @@
             </div>
 
             <div id="stats" class="tab-content p-4 md:p-6 lg:p-8" style="display:none;">
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Performance Data</h2>
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-running text-blue-500"></i>
-                        <span class="text-gray-600 font-medium">Appearances:</span>
-                        <span class="text-gray-700">150</span>
+                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Career Statistics</h2>
+                <div class="flex flex-col">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Offensive Statistics</h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">Season</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">Team</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">Strt</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">FC</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">FA</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">YC</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">RC</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">G</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">A</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">Sh</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">St</th>
+                                        <th class="px-4 py-2 text-gray-600 font-semibold uppercase">OF</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700" id="stats-table-body">
+                                    <tr>
+                                        <td class="px-4 py-2">2024-25 Saudi Pro League</td>
+                                        <td class="px-4 py-2">NSR</td>
+                                        <td class="px-4 py-2">27</td>
+                                        <td class="px-4 py-2">9</td>
+                                        <td class="px-4 py-2">23</td>
+                                        <td class="px-4 py-2">2</td>
+                                        <td class="px-4 py-2">0</td>
+                                        <td class="px-4 py-2">23</td>
+                                        <td class="px-4 py-2">3</td>
+                                        <td class="px-4 py-2">129</td>
+                                        <td class="px-4 py-2">61</td>
+                                        <td class="px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">2023-24 Saudi Pro League</td>
+                                        <td class="px-4 py-2">NSR</td>
+                                        <td class="px-4 py-2">30</td>
+                                        <td class="px-4 py-2">16</td>
+                                        <td class="px-4 py-2">29</td>
+                                        <td class="px-4 py-2">2</td>
+                                        <td class="px-4 py-2">0</td>
+                                        <td class="px-4 py-2">35</td>
+                                        <td class="px-4 py-2">11</td>
+                                        <td class="px-4 py-2">181</td>
+                                        <td class="px-4 py-2">72</td>
+                                        <td class="px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2">2022-23 Saudi Pro League</td>
+                                        <td class="px-4 py-2">NSR</td>
+                                        <td class="px-4 py-2">16</td>
+                                        <td class="px-4 py-2">12</td>
+                                        <td class="px-4 py-2">20</td>
+                                        <td class="px-4 py-2">3</td>
+                                        <td class="px-4 py-2">0</td>
+                                        <td class="px-4 py-2">14</td>
+                                        <td class="px-4 py-2">2</td>
+                                        <td class="px-4 py-2">70</td>
+                                        <td class="px-4 py-2">28</td>
+                                        <td class="px-4 py-2">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="chart-container mt-8" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                            <canvas id="playerStatsChart"></canvas>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-futbol text-green-500"></i>
-                        <span class="text-gray-600 font-medium">Goals:</span>
-                        <span class="text-gray-700">70</span>
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Glossary</h2>
+                        <div class="grid grid-cols-2">
+                            <div class="font-bold text-gray-900">
+                                <p><span class="uppercase">A</span> : Assists</p>
+                                <p><span class="uppercase">FA</span> : Fouls Suffered</p>
+                                <p><span class="uppercase">FC</span> : Fouls Committed</p>
+                                <p><span class="uppercase">G</span> : Total Goals</p>
+                            </div>
+                            <div class="font-bold text-gray-900">
+                                <p><span class="uppercase">OF</span> : Offsides</p>
+                                <p><span class="uppercase">RC</span> : Red Cards</p>
+                                <p><span class="uppercase">SH</span> : Shots</p>
+                                <p><span class="uppercase">ST</span> : Shots On Target</p>
+                            </div>
+                            <div class="font-bold text-gray-900">
+                                <p><span class="uppercase">STRT</span> : Starts</p>
+                                <p><span class="uppercase">YC</span> : Yellow Cards</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-hand-holding-heart text-yellow-500"></i>
-                        <span class="text-gray-600 font-medium">Assists:</span>
-                        <span class="text-gray-700">40</span>
-                    </div>
-                </div>
-                <div class="mt-8">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Goals and Assists</h3>
-                    <div id="chart"></div>
-                </div>
-
-                <div class="mt-8">
-                    <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Glossary</h2>
-                    <ul class="list-disc list-inside space-y-2 grid grid-cols-1 md:grid-cols-3">
-                        <li><span class="font-semibold">A:</span> Assists</li>
-                        <li><span class="font-semibold">FA:</span> Fouls Suffered</li>
-                        <li><span class="font-semibold">FC:</span> Fouls Committed</li>
-                        <li><span class="font-semibold">G:</span> Goals</li>
-                        <li><span class="font-semibold">OF:</span> Offsides</li>
-                        <li><span class="font-semibold">RC:</span> Red Cards</li>
-                        <li><span class="font-semibold">SH:</span> Shots</li>
-                        <li><span class="font-semibold">ST:</span> Shots on Target</li>
-                        <li><span class="font-semibold">STRT:</span> Starts</li>
-                        <li><span class="font-semibold">YC:</span> Yellow Cards</li>
-                    </ul>
                 </div>
             </div>
 
@@ -263,6 +319,11 @@
             tabLinks.forEach(link => link.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             evt.currentTarget.classList.add('active');
+             if (tabName === 'stats') {
+                 // Ensure the stats tab content is displayed before loading data
+                document.getElementById('stats').style.display = 'block';
+                loadAndDisplayStats();
+             }
         }
 
         // Calculate and display age
@@ -270,15 +331,85 @@
             const birthDate = document.getElementById('birthdate').textContent;
             const age = calculateAge(birthDate);
             document.getElementById('age').textContent = `Age: ${age}`;
-
-             // Sample data for the chart (replace with actual data)
-            const chartData = {
-                categories: ['2021-22', '2022-23', '2023-24'],
-                goals: [25, 30, 35],
-                assists: [15, 20, 18]
-            };
-            renderChart(chartData);
         };
+
+        function loadAndDisplayStats() {
+            // Wait for the DOM to be fully loaded, especially the table
+            document.addEventListener('DOMContentLoaded', () => {
+                const table = document.querySelector('.min-w-full');
+                if (!table) {
+                    console.error('Table element not found');
+                    return;
+                }
+                const headers = Array.from(table.querySelectorAll('thead tr th')).map(th => th.textContent.trim());
+                const rows = Array.from(table.querySelectorAll('tbody tr'));
+                const data = rows.map(row => {
+                    const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+                    return Object.fromEntries(headers.map((header, index) => [header, rowData[index]]));
+                });
+
+                // Prepare data for the chart
+                const seasons = data.map(row => row.Season);
+                const goals = data.map(row => parseInt(row.G));
+                const assists = data.map(row => parseInt(row.A));
+
+                // Create the chart
+                const ctx = document.getElementById('playerStatsChart');
+                if (!ctx) {
+                    console.error('Canvas element not found');
+                    return;
+                }
+                // Check if a chart instance already exists and destroy it if so
+                if (window.playerStatsChartInstance) {
+                    window.playerStatsChartInstance.destroy();
+                }
+
+                window.playerStatsChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: seasons,
+                        datasets: [{
+                            label: 'Goals',
+                            data: goals,
+                            backgroundColor: 'rgba(255, 99, 132, 0.7)', // Red
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: 'Assists',
+                            data: assists,
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)', // Blue
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Goals and Assists per Season',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value;  // convert it to string
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
 
         function calculateAge(birthDate) {
             const today = new Date();
@@ -289,81 +420,6 @@
                 age--;
             }
             return age;
-        }
-
-        function renderChart(data) {
-            const chartContainer = document.querySelector("#chart");
-            if (chartContainer) {
-                const options = {
-                    series: [{
-                        name: 'Goals',
-                        data: data.goals
-                    }, {
-                        name: 'Assists',
-                        data: data.assists
-                    }],
-                    chart: {
-                        type: 'bar',
-                        height: 350,
-                        stacked: true
-                    },
-                    plotOptions: {
-                        bar: {
-                            borderRadius: 8,
-                            dataLabels: {
-                                position: 'top', // top, center, bottom
-                            },
-                        }
-                    },
-                    dataLabels: {
-                        enabled: true,
-                        offsetY: -20,
-                        style: {
-                            fontSize: '12px',
-                            colors: ["#304758"]
-                        }
-                    },
-                    xaxis: {
-                        categories: data.categories,
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Count'
-                        },
-                        labels: {
-                            formatter: function (val) {
-                                return val;
-                            }
-                        }
-                    },
-                    title: {
-                        text: 'Goals and Assists by Season',
-                        align: 'center',
-                        style: {
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            color: '#263238'
-                        }
-                    },
-                    colors: ['#008FFB', '#FF4500'],
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return val;
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'bottom',
-                        offsetY: 10
-                    }
-                };
-
-                const chart = new ApexCharts(chartContainer, options);
-                chart.render();
-            } else {
-                console.error("Chart container element not found");
-            }
         }
     </script>
 </body>
