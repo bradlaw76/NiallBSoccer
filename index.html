@@ -8,70 +8,102 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
         }
         .tab-item {
             cursor: pointer;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .tab-item.active {
             background-color: rgba(255, 255, 255, 0.2);
-            border-bottom: 2px solid white;
+            border-bottom: 3px solid white;
+            transform: scale(1.1);
         }
-    </style>
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tab-item");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+        .tab-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .profile-img {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .social-links a {
+            margin: 0 10px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #63b3ed;
         }
 
-        function calculateAge(birthDate) {
-            const today = new Date();
-            const birthDateObj = new Date(birthDate);
-            let age = today.getFullYear() - birthDateObj.getFullYear();
-            const m = today.getMonth() - birthDateObj.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
-                age--;
-            }
-            return age;
+        /* New styles for footer images */
+        .footer-images {
+            position: fixed; /* Fix the position to the bottom right */
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px; /* Space between images */
+            z-index: 1000; /* Ensure images are on top of other elements */
         }
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        .footer-images img {
+            max-height: 50px; /* Adjust size as needed */
+            border-radius: 8px;  /* Optional: round the corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: add a shadow */
+        }
+
+        .header-images {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            margin-left: auto;
+        }
+
+        .header-images img {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            max-height: 50px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body>
     <div class="container mx-auto p-4 md:p-6 lg:p-8">
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-4 md:p-6 lg:p-8">
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                    <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold">Niall B. Law</h1>
-                    <div class="flex items-center gap-4 mt-2 md:mt-0">
-                        <span class="text-sm md:text-base">Follow Niall B. Law:</span>
-                        <a href="#" class="text-white hover:text-gray-200 transition-colors">X</a>
-                        <a href="#" class="text-white hover:text-gray-200 transition-colors">Instagram</a>
-                    </div>
-                    <div class="w-40 h-40 md:w-56 md:h-56 rounded-full flex items-center justify-center ml-0 md:ml-4 lg:ml-8 mt-4 md:mt-0 bg-gradient-to-r from-blue-500 to-indigo-600">
+                <div class="flex  md:flex-row items-center justify-between">
+                    <div class="w-40 h-40 md:w-56 md:h-56 rounded-full flex items-center justify-center ml-0 md:ml-4 lg:ml-8 mt-4 md:mt-0 bg-gradient-to-r from-blue-500 to-indigo-600 profile-img order-1 mr-4">
                         <span class="text-gray-500 text-sm text-white">Player Image</span>
                     </div>
+                    <div class="flex flex-col md:items-start order-2" style="margin-left: 0px;">
+                        <h1 class="text-xl md:text-3xl lg:text-4xl font-semibold" style="font-size: 40pt; line-height: 1.2;">Niall B.</h1>
+                        <h1 class="text-xl md:text-3xl lg:text-4xl font-semibold" style="font-size: 40pt;">Law</h1>
+                    </div>
+                    <div class="social-links flex items-center gap-4 mt-2 md:mt-0 order-3">
+                        
+                    </div>
                 </div>
+
                 <div class="mt-4 md:mt-6 lg:mt-8">
                     <div class="flex space-x-4">
-                        <div class="tab-item active px-4 py-2 rounded-t-lg text-white hover:bg-rgba(255,255,255,0.2) transition-colors" onclick="openTab(event, 'overview')">Overview</div>
-                        <div class="tab-item px-4 py-2 rounded-t-lg text-white hover:bg-rgba(255,255,255,0.2) transition-colors" onclick="openTab(event, 'stats')">Stats</div>
+                        <div class="tab-item active text-white hover:bg-opacity-20 transition-colors" onclick="openTab(event, 'overview')">Overview</div>
+                        <div class="tab-item text-white hover:bg-opacity-20 transition-colors" onclick="openTab(event, 'stats')">Stats</div>
                     </div>
                 </div>
             </div>
 
-            <div id="overview" class="tabcontent p-4 md:p-6 lg:p-8 ">
+            <div id="overview" class="tab-content active p-4 md:p-6 lg:p-8">
                 <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Personal Details</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="flex items-center gap-4 mb-2">
@@ -80,7 +112,7 @@
                     </div>
                     <div class="flex items-center gap-4 mb-2">
                         <span class="text-gray-600 font-medium">Height:</span>
-                        <span class="text-gray-700">5'</span>
+                        <span class="text-gray-700">5' 10"</span>
                     </div>
                     <div class="flex items-center gap-4 mb-2">
                         <span class="text-gray-600 font-medium">Born:</span>
@@ -106,55 +138,75 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mt-6">
+                    <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Upcoming Games</h2>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>
+                            <span class="font-semibold">Niall B. Law vs. Team A</span>
+                            <span class="text-gray-500 text-sm">- Date: March 10, 2024</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold">Niall B. Law vs. Team B</span>
+                            <span class="text-gray-500 text-sm">- Date: March 17, 2024</span>
+                        </li>
+                        <li>
+                            <span class="font-semibold">Niall B. Law vs. Team C</span>
+                            <span class="text-gray-500 text-sm">- Date: March 24, 2024</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                
+
                 <div class="mt-6">
                     <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Youth Clubs</h2>
                     <ul class="list-disc list-inside space-y-1">
-                        <li class="text-gray-700">I9 Sports (2020-2022)</li>
-                        <li class="text-gray-700">VA Revolution (2022-2024)</li>
-                        <li class="text-gray-700">Loudoun Soccer (2022-2025)</li>
+                        <li class="flex items-center gap-2">
+                            <img src="https://cdn.prod.website-files.com/64f568b3e04c7cd62c1cfd19/64f57cb0381397393cbe57bb_i9_-web.png" alt="i9 Sports Logo" class="w-5 h-5 rounded">
+                            <span class="text-gray-700">i9 Sports (2019-2022)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <img src="https://varevolution.com/wp-content/uploads/2022/03/vrsc_gold_main.png" alt="Revolution Logo" class="w-5 h-5 rounded">
+                            <span class="text-gray-700">Revolution (2022-2024)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <img src="https://lirp.cdn-website.com/87e970a3/dms3rep/multi/opt/LS_logo_new-168h.png" alt="Loudoun Soccer Logo" class="w-5 h-5 rounded">
+                            <span class="text-gray-700">Loudoun Soccer (2025 - Present)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <img src="https://lirp.cdn-website.com/87e970a3/dms3rep/multi/opt/LS_logo_new-168h.png" alt="Loudoun Soccer Logo" class="w-5 h-5 rounded">
+                            <span class="text-gray-700">2025 Spring: Loudoun Soccer Challenge</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <img src="https://lirp.cdn-website.com/87e970a3/dms3rep/multi/opt/LS_logo_new-168h.png" alt="Loudoun Soccer Logo" class="w-5 h-5 rounded">
+                            <span class="text-gray-700">2025 Spring: Loudoun Soccer All Stars</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6">
+                    <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Latest News</h2>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>
+                            <a href="#" class="text-blue-600 hover:underline">Niall B. Law scores game-winning goal</a>
+                            <span class="text-gray-500 text-sm">- ESPN</span>
+                        </li>
+                        <li>
+                            <a href="#" class="text-blue-600 hover:underline">Niall B. Law named Player of the Month</a>
+                            <span class="text-gray-500 text-sm">- Sports Illustrated</span>
+                        </li>
+                        <li>
+                            <a href="#" class="text-blue-600 hover:underline">Niall B. Law injury update</a>
+                            <span class="text-gray-500 text-sm">- Team Official Website</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div id="overview" class="tabcontent p-4 md:p-6 lg:p-8 ">
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Latest News</h2>
-                <ul class="list-disc list-inside space-y-2">
-                    <li>
-                        <a href="#" class="text-blue-600 hover:underline">Niall B. Law scores game-winning goal</a>
-                        <span class="text-gray-500 text-sm">- ESPN</span>
-                    </li>
-                    <li>
-                        <a href="#" class="text-blue-600 hover:underline">Niall B. Law named Player of the Month</a>
-                        <span class="text-gray-500 text-sm">- Sports Illustrated</span>
-                    </li>
-                    <li>
-                        <a href="#" class="text-blue-600 hover:underline">Niall B. Law injury update</a>
-                        <span class="text-gray-500 text-sm">- Team Official Website</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="overview" class="tabcontent p-4 md:p-6 lg:p-8">
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Upcoming Games</h2>
-                <ul class="list-disc list-inside space-y-2">
-                    <li>
-                        <span class="font-semibold">Niall B. Law vs. Team A</span>
-                        <span class="text-gray-500 text-sm">- Date: March 10, 2024</span>
-                    </li>
-                    <li>
-                        <span class="font-semibold">Niall B. Law vs. Team B</span>
-                        <span class="text-gray-500 text-sm">- Date: March 17, 2024</span>
-                    </li>
-                    <li>
-                         <span class="font-semibold">Niall B. Law vs. Team C</span>
-                        <span class="text-gray-500 text-sm">- Date: March 24, 2024</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="stats" class="tabcontent p-4 md:p-6 lg:p-8" style="display:none;">
-                 <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Performance Data</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div id="stats" class="tab-content p-4 md:p-6 lg:p-8" style="display:none;">
+                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Performance Data</h2>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                     <div class="flex items-center gap-2">
                         <i class="fas fa-running text-blue-500"></i>
                         <span class="text-gray-600 font-medium">Appearances:</span>
@@ -170,85 +222,149 @@
                         <span class="text-gray-600 font-medium">Assists:</span>
                         <span class="text-gray-700">40</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-users text-purple-500"></i>
-                        <span class="text-gray-600 font-medium">Starting Eleven:</span>
-                        <span class="text-gray-700">64%</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-clock text-indigo-500"></i>
-                        <span class="text-gray-600 font-medium">Minutes Played:</span>
-                        <span class="text-gray-700">58%</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-star text-red-500"></i>
-                        <span class="text-gray-600 font-medium">Goal Participation:</span>
-                        <span class="text-gray-700">33%</span>
-                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Goals and Assists</h3>
+                    <div id="chart"></div>
                 </div>
 
-                <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4 mt-8">Premier League Playing Career</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white rounded-lg shadow-md">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="px-4 py-2 text-left text-gray-600 font-semibold">Season</th>
-                                <th class="px-4 py-2 text-left text-gray-600 font-semibold">Club</th>
-                                <th class="px-4 py-2 text-left text-gray-600 font-semibold">Apps</th>
-                                <th class="px-4 py-2 text-left text-gray-600 font-semibold">Goals</th>
-                                <th class="px-4 py-2 text-left text-gray-600 font-semibold">Assists</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-700" id="stats-table-body">
-                            </tbody>
-                    </table>
+                <div class="mt-8">
+                    <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-4">Glossary</h2>
+                    <ul class="list-disc list-inside space-y-2 grid grid-cols-1 md:grid-cols-3">
+                        <li><span class="font-semibold">A:</span> Assists</li>
+                        <li><span class="font-semibold">FA:</span> Fouls Suffered</li>
+                        <li><span class="font-semibold">FC:</span> Fouls Committed</li>
+                        <li><span class="font-semibold">G:</span> Goals</li>
+                        <li><span class="font-semibold">OF:</span> Offsides</li>
+                        <li><span class="font-semibold">RC:</span> Red Cards</li>
+                        <li><span class="font-semibold">SH:</span> Shots</li>
+                        <li><span class="font-semibold">ST:</span> Shots on Target</li>
+                        <li><span class="font-semibold">STRT:</span> Starts</li>
+                        <li><span class="font-semibold">YC:</span> Yellow Cards</li>
+                    </ul>
                 </div>
             </div>
+
         </div>
     </div>
 
+    <div class="footer-images">
+        <img src="https://lirp.cdn-website.com/87e970a3/dms3rep/multi/opt/LS_logo_new-168h.png" alt="Loudoun Soccer Logo">
+        <img src="https://varevolution.com/wp-content/uploads/2022/03/vrsc_gold_main.png" alt="VRSC Logo">
+        <img src="https://cdn.prod.website-files.com/64f568b3e04c7cd62c1cfd19/64f57cb0381397393cbe57bb_i9_-web.png" alt="i9 Sports Logo">
+    </div>
+
     <script>
-        // Function to load and display the stats from the CSV file
-        function loadAndDisplayStats() {
-            fetch('player_stats.csv') // Path to your CSV file
-                .then(response => response.text())
-                .then(csvData => {
-                    const lines = csvData.trim().split('\n');  // Split the CSV data into lines
-                    const header = lines[0].split(',');    // Get the header row
-                    const dataRows = lines.slice(1);       // Get the data rows
-
-                    const tableBody = document.getElementById('stats-table-body');
-                    tableBody.innerHTML = '';             // Clear any existing data in the table body
-
-                    dataRows.forEach(row => {
-                        const values = row.split(','); // Split each row into values
-                        const tr = document.createElement('tr');  // Create a table row
-                        values.forEach(value => {
-                            const td = document.createElement('td'); // Create a table cell
-                            td.className = 'px-4 py-2';         // For padding
-                            td.textContent = value;             // Set the cell text
-                            tr.appendChild(td);                  // Add the cell to the row
-                        });
-                        tableBody.appendChild(tr);              // Add the row to the table body
-                    });
-                })
-                .catch(error => console.error('Error loading or parsing CSV:', error)); // Handle errors
+        // Function to open tabs
+        function openTab(evt, tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const tabLinks = document.querySelectorAll('.tab-item');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabLinks.forEach(link => link.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
 
-        // Call the function when the page loads
+        // Calculate and display age
         window.onload = function() {
-            loadAndDisplayStats(); // Load the stats data
-            document.getElementById("overview").style.display = "block"; // Show the overview tab by default
+            const birthDate = document.getElementById('birthdate').textContent;
+            const age = calculateAge(birthDate);
+            document.getElementById('age').textContent = `Age: ${age}`;
 
-            // Calculate and display age
-            const birthDateElement = document.getElementById('birthdate');
-            const ageElement = document.getElementById('age');
-            if (birthDateElement && ageElement) {
-                const birthDate = birthDateElement.textContent;
-                const age = calculateAge(birthDate);
-                ageElement.textContent = `Age: ${age}`;
-            }
+             // Sample data for the chart (replace with actual data)
+            const chartData = {
+                categories: ['2021-22', '2022-23', '2023-24'],
+                goals: [25, 30, 35],
+                assists: [15, 20, 18]
+            };
+            renderChart(chartData);
         };
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birthDateObj = new Date(birthDate);
+            let age = today.getFullYear() - birthDateObj.getFullYear();
+            const m = today.getMonth() - birthDateObj.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function renderChart(data) {
+            const chartContainer = document.querySelector("#chart");
+            if (chartContainer) {
+                const options = {
+                    series: [{
+                        name: 'Goals',
+                        data: data.goals
+                    }, {
+                        name: 'Assists',
+                        data: data.assists
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        stacked: true
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 8,
+                            dataLabels: {
+                                position: 'top', // top, center, bottom
+                            },
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        offsetY: -20,
+                        style: {
+                            fontSize: '12px',
+                            colors: ["#304758"]
+                        }
+                    },
+                    xaxis: {
+                        categories: data.categories,
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Count'
+                        },
+                        labels: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                    title: {
+                        text: 'Goals and Assists by Season',
+                        align: 'center',
+                        style: {
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            color: '#263238'
+                        }
+                    },
+                    colors: ['#008FFB', '#FF4500'],
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'bottom',
+                        offsetY: 10
+                    }
+                };
+
+                const chart = new ApexCharts(chartContainer, options);
+                chart.render();
+            } else {
+                console.error("Chart container element not found");
+            }
+        }
     </script>
 </body>
 </html>
